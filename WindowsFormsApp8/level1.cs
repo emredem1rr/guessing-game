@@ -213,7 +213,7 @@ namespace WindowsFormsApp8
                     }
                     mapClone.Clear(); //mapclone 0'ladık
                     mapClone.AddRange(map); //0'DAN yine MAPCLONE
-                    boymayabasla();
+                    boymayabasla(); 
                 }
             }
 
