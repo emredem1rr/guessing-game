@@ -8,7 +8,7 @@ namespace WindowsFormsApp8
 {
     public class Player
     {
-        //aa nasıl göndercem ettimdas
+
         public string Name { get; set; }
 
         public int Score { get; set; }
