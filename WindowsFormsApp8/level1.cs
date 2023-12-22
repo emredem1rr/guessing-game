@@ -207,7 +207,7 @@ namespace WindowsFormsApp8
                 }
                 else
                 {
-                    foreach (var item in buttons)
+                    foreach (var item in mapClone)
                     {
                         item.BackColor = Color.White;  //YANLIS TUSA BASTIGINDA MAP 0'LANDI BAŞTAN BAŞLAYIP PUANININ AZALMASI GEREKİYOR    //!HATA VAR              
                     }
