@@ -21,6 +21,7 @@ namespace WindowsFormsApp8
         public MainMenu()
         {
             InitializeComponent();
+            this.MaximizeBox = false;
         }
 
         private void PlayGameLabelClick(object sender, EventArgs e)

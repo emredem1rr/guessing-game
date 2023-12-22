@@ -12,6 +12,8 @@ namespace WindowsFormsApp8
 {
     public partial class level2 : Form
     {
+        List<Player> Players = new List<Player>();
+        Player currentPlayer;
 
         int dak = 0;
         int saniye = 0;
@@ -28,15 +30,20 @@ namespace WindowsFormsApp8
         private bool isButton27Clicked = false;
         List<Button> map = new List<Button>();
         List<Button> mapClone = new List<Button>();
-        public level2()
+        public level2(List<Player> players)
         {
             InitializeComponent();
-            
+            this.Players = players;
         }
+
+        public level2()
+        {
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
-            t1Btn.Text = MainMenu.player1Name;
-            t2Btn.Text = MainMenu.player2Name;
+            currentPlayer = Players[0];
+            currentPlayerLabel.Text = currentPlayer.Name;
         }      
         private void timer1_Tick(object sender, EventArgs e) //süre sayac yeri
         {
@@ -125,8 +132,7 @@ namespace WindowsFormsApp8
             {
                 return;
             }
-            t1Btn.Enabled = false;
-            t2Btn.Enabled = false;
+          
             gameStart = true;
             //random harita oluşturma başlangıcı
             List<Button> buttons = Controls.OfType<Button>().Where(b => b.Tag == "map").ToList(); // tüm butonlara erişebilmek için
@@ -186,7 +192,7 @@ namespace WindowsFormsApp8
             }
             if (!boyamaOpen) { return; } //Boymaya başlamak için başlata bas
 
-            team = t1Btn.Checked ? 1 : 2;
+            team = currentPlayer.Name == Players.First().Name ? 1 : 2;
 
             var clickedButton = (Button)sender;
             clickedButton.BackColor = Color.White;

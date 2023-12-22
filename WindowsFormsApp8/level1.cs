@@ -207,12 +207,12 @@ namespace WindowsFormsApp8
                 }
                 else
                 {
-                    foreach (var item in mapClone)
+                    foreach (var item in buttons)
                     {
                         item.BackColor = Color.White;  //YANLIS TUSA BASTIGINDA MAP 0'LANDI BAŞTAN BAŞLAYIP PUANININ AZALMASI GEREKİYOR    //!HATA VAR              
                     }
                     mapClone.Clear(); //mapclone 0'ladık
-                    mapClone.AddRange(map); //0'DAN yine MAPCLONE
+                    mapClone.AddRange(map); //0'DAN yine MAPCLONE 
                     boymayabasla();
                 }
             }
@@ -229,6 +229,16 @@ namespace WindowsFormsApp8
                 {
                     clickedButton.BackColor = Color.Red;
                 }
+        }
+
+        private void currentPlayerLabelPrefix_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dakikaLbl_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
