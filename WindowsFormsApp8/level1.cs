@@ -197,38 +197,78 @@ namespace WindowsFormsApp8
             var clickedButton = (Button)sender;
             clickedButton.BackColor = Color.White;
 
-            boymayabasla();
+            //boymayabasla();
 
-            void boymayabasla()
+            //void boymayabasla()
+            //{
+            //    if (mapClone.First() == clickedButton) //tıklanan dizinin ilk elemanı mı kontrol
+            //    {
+            //        mapClone.Remove(clickedButton); //ilk elemanı siliyoruz diğeri ilk eleman oluyo kuyruk mantığı
+            //    }
+            //    else
+            //    {
+            //        foreach (var item in mapClone)
+            //        {
+            //            item.BackColor = Color.White;  //YANLIS TUSA BASTIGINDA MAP 0'LANDI BAŞTAN BAŞLAYIP PUANININ AZALMASI GEREKİYOR    //!HATA VAR              
+            //        }
+            //        mapClone.Clear(); //mapclone 0'ladık
+            //        mapClone.AddRange(map); //0'DAN yine MAPCLONE 
+            //        boymayabasla();
+            //    }
+            //}
+
+            if (mapClone.First() == clickedButton) //tıklanan dizinin ilk elemanı mı kontrol
             {
-                if (mapClone.First() == clickedButton) //tıklanan dizinin ilk elemanı mı kontrol
-                {
-                    mapClone.Remove(clickedButton); //ilk elemanı siliyoruz diğeri ilk eleman oluyo kuyruk mantığı
-                }
-                else
-                {
-                    foreach (var item in mapClone)
-                    {
-                        item.BackColor = Color.White;  //YANLIS TUSA BASTIGINDA MAP 0'LANDI BAŞTAN BAŞLAYIP PUANININ AZALMASI GEREKİYOR    //!HATA VAR              
-                    }
-                    mapClone.Clear(); //mapclone 0'ladık
-                    mapClone.AddRange(map); //0'DAN yine MAPCLONE 
-                    boymayabasla();
-                }
+                mapClone.Remove(clickedButton); //ilk elemanı siliyoruz diğeri ilk eleman oluyo kuyruk mantığı
+            }
+            else //yanlış bilirse resetliyoruz
+            {
+                ResetMap();
             }
 
-                if (team == 1)
-                {
-                    clickedButton.BackColor = Color.Blue;
-                }
-                else if (team != 2 && team != 1)
-                {
-                    clickedButton.BackColor = Color.White;
-                }
-                else
-                {
-                    clickedButton.BackColor = Color.Red;
-                }
+
+            if (team == 1)
+            {
+                clickedButton.BackColor = Color.Blue;
+            }
+            else if (team != 2 && team != 1)
+            {
+                clickedButton.BackColor = Color.White;
+            }
+            else
+            {
+                clickedButton.BackColor = Color.Red;
+            }
+        }
+
+        private void ResetMap()
+        {
+            List<Button> buttons = Controls.OfType<Button>().Where(b => b.Tag.ToString() == "map").ToList();
+            buttons.ForEach(b => b.BackColor = Color.White);
+            CreateMap(buttons);
+        }
+
+        private void CreateMap(List<Button> buttons)
+        {
+            Random r = new Random();
+            int range = 3; 
+            int startIndex = 0; 
+
+            while (startIndex + range < buttons.Count + 1) 
+            {
+                map.Add(buttons[r.Next(startIndex, startIndex + range)]); 
+                startIndex += range;        
+            }
+
+            foreach (var item in map)
+            {
+                item.BackColor = Color.Green;
+            }
+
+            timer2.Interval = 3000;
+            timer2.Enabled = true;
+
+            mapClone.AddRange(map);
         }
 
         private void currentPlayerLabelPrefix_Click(object sender, EventArgs e)
