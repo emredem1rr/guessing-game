@@ -217,16 +217,6 @@ namespace WindowsFormsApp8
             //    }
             //}
 
-            if (mapClone.First() == clickedButton) //tıklanan dizinin ilk elemanı mı kontrol
-            {
-                mapClone.Remove(clickedButton); //ilk elemanı siliyoruz diğeri ilk eleman oluyo kuyruk mantığı
-            }
-            else //yanlış bilirse resetliyoruz
-            {
-                ResetMap();
-            }
-
-
             if (team == 1)
             {
                 clickedButton.BackColor = Color.Blue;
@@ -239,17 +229,27 @@ namespace WindowsFormsApp8
             {
                 clickedButton.BackColor = Color.Red;
             }
+
+            if (mapClone.First() == clickedButton) //tıklanan dizinin ilk elemanı mı kontrol
+            {
+                mapClone.Remove(clickedButton); //ilk elemanı siliyoruz diğeri ilk eleman oluyo kuyruk mantığı
+            }
+            else //yanlış bilirse resetliyoruz
+            {
+                ResetMap();
+            }
         }
 
         private void ResetMap()
         {
-            List<Button> buttons = Controls.OfType<Button>().Where(b => b.Tag.ToString() == "map").ToList();
+            List<Button> buttons = Controls.OfType<Button>().Where(b => b.Tag == "map").ToList();
             buttons.ForEach(b => b.BackColor = Color.White);
             CreateMap(buttons);
         }
 
         private void CreateMap(List<Button> buttons)
         {
+            this.map.Clear();
             Random r = new Random();
             int range = 3; 
             int startIndex = 0; 
