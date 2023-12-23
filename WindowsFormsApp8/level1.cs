@@ -32,14 +32,23 @@ namespace WindowsFormsApp8
         private bool surReady = false;
         private bool boyamaOpen = false;
         private bool isButton27Clicked = false;
+        private bool bitirActive = false;
+        private bool gosterEnd = false;
+        private bool sesKontrol = true;
+
+
+
+        private SoundPlayer dogruSesi = new SoundPlayer(Resource1.dogruSesi);
+        private SoundPlayer yanlisSesi = new SoundPlayer(Resource1.yanlisSesi);
 
         List<Button> map = new List<Button>();
         List<Button> mapClone = new List<Button>();
 
-        public Level1Form(List<Player> players)
+        public Level1Form(List<Player> players,bool sesKontrol)
         {
             InitializeComponent();
             this.Players = players;
+            this.sesKontrol = sesKontrol;
         }
 
         private void Level1_Load(object sender, EventArgs e)
@@ -66,6 +75,7 @@ namespace WindowsFormsApp8
             map.ForEach(item => item.BackColor = Color.White);
             List<Button> buttons = Controls.OfType<Button>().Where(b => b.Tag == "map").ToList(); // tüm butonlara eriştik
             buttons.ForEach(b => b.Enabled = true); //buttonların boyanması kapandıgında başlata basma açılır
+            gosterEnd = true;
         }
 
         private void StartButtonClick(object sender, EventArgs e) // BAŞLA BUTTON
@@ -77,18 +87,22 @@ namespace WindowsFormsApp8
             {
                 return;
             }
+            if (!gosterEnd) { return; }
 
             if (!isButtonChanged)
             {
+                
                 button25.Text = "BİTİR";
                 isButtonChanged = true;
                 surReady = true;
                 boyamaOpen = true;
+                gameStart = true;
             }
 
             if (isTimerRunning)
             {
                 // Timer zaten çalışıyorsa durdur
+                if (!bitirActive) { return; } //bitir aktifleştiys
                 timer1.Stop();
                 isTimerRunning = false;
                 isStartButtonClicked = true; // Button ismi "BİTİR" ise tıklanma özelliği biter
@@ -113,6 +127,7 @@ namespace WindowsFormsApp8
             //random harita oluşturma başlangıcı
             List<Button> buttons = Controls.OfType<Button>().Where(b => b.Tag == "map").ToList(); // tüm butonlara erişebilmek için
             buttons.ForEach(b => b.Enabled = false); //buttonun basılabilmesini kapadık
+
             Random r = new Random();
             int range = 3; //her sıradaki buton sayısı
             int startIndex = 0; //başlangıç bu değişecek sürekli
@@ -195,7 +210,7 @@ namespace WindowsFormsApp8
 
             if (team == 1)
             {
-                clickedButton.BackColor = Color.Blue;
+                clickedButton.BackColor = Color.Blue;             
             }
             else if (team != 2 && team != 1)
             {
@@ -206,12 +221,17 @@ namespace WindowsFormsApp8
                 clickedButton.BackColor = Color.Red;
             }
 
+
             if (mapClone.First() == clickedButton) //tıklanan dizinin ilk elemanı mı kontrol
             {
+                if (sesKontrol) { dogruSesi.Play(); }
+                
                 mapClone.Remove(clickedButton); //ilk elemanı siliyoruz diğeri ilk eleman oluyo kuyruk mantığı
+                timer3.Start();
             }
             else //yanlış bilirse resetliyoruz
             {
+                if (sesKontrol) { yanlisSesi.Play(); }
                 ResetMap();
             }
         }
@@ -264,6 +284,7 @@ namespace WindowsFormsApp8
         {       
             List<Button>buttons = Controls.OfType<Button>().Where(b => b.Tag == "map").ToList(); // tüm butonlara eriştik
             buttons.ForEach(b => b.Enabled = true);
+            if(mapClone.Count() == 0) { bitirActive = true; }
         }
     }
 }
