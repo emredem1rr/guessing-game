@@ -108,7 +108,7 @@ namespace WindowsFormsApp8
                 isStartButtonClicked = true; // Button ismi "BİTİR" ise tıklanma özelliği biter
                 levelEnd = true;
                 if (team == 1) { //BİTİRE BASTIGINDA OYUNCU DEĞİŞSİN OYUN BASINA DÖNÜLSÜN OYUNCU1 İN SÜRESİ TUTULSUN SKORE İÇİN-----------------------
-                    team = 2;
+                    
                 }
             }
             else
