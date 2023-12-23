@@ -128,7 +128,7 @@ namespace WindowsFormsApp8
                 item.BackColor = Color.Green;
             }
             
-            timer2.Interval = 4000; //4 saniye durcak
+            timer2.Interval = 2000; //2 saniye durcak
             timer2.Enabled = true;
             isButton27Clicked = true;
             mapClone.AddRange(map);

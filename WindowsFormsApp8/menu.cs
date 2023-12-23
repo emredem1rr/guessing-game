@@ -32,7 +32,10 @@ namespace WindowsFormsApp8
         }
         private void pictureBox1_Click(object sender, EventArgs e) //ses kapatma
         {
-            sesKontrol = false;
+            sesKontrol = !sesKontrol;
+            if(!sesKontrol)
+            pictureBox1.Image = Resource1.mute;
+            if(sesKontrol ) pictureBox1.Image = Resource1.volume_up;
         }
 
         private void PlayGameLabelClick(object sender, EventArgs e)
@@ -43,7 +46,7 @@ namespace WindowsFormsApp8
             Players.Add(new Player() { Name = textBox1.Text });
             Players.Add(new Player() { Name = textBox2.Text });
 
-            Level1Form level1Form = new Level1Form(this.Players,this.sesKontrol);
+            Level1Form level1Form = new Level1Form(this.Players,sesKontrol);
 
             // oyun formu gösterme
             level1Form.Show();

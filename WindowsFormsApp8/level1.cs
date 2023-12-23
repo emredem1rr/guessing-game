@@ -35,7 +35,7 @@ namespace WindowsFormsApp8
         private bool bitirActive = false;
         private bool gosterEnd = false;
         private bool sesKontrol = true;
-
+        int team;
 
 
         private SoundPlayer dogruSesi = new SoundPlayer(Resource1.dogruSesi);
@@ -89,7 +89,7 @@ namespace WindowsFormsApp8
             }
             if (!gosterEnd) { return; }
 
-            if (!isButtonChanged)
+            if (!isButtonChanged) //başlaya basma
             {
                 
                 button25.Text = "BİTİR";
@@ -99,7 +99,7 @@ namespace WindowsFormsApp8
                 gameStart = true;
             }
 
-            if (isTimerRunning)
+            if (isTimerRunning) //bitire basma
             {
                 // Timer zaten çalışıyorsa durdur
                 if (!bitirActive) { return; } //bitir aktifleştiys
@@ -107,6 +107,9 @@ namespace WindowsFormsApp8
                 isTimerRunning = false;
                 isStartButtonClicked = true; // Button ismi "BİTİR" ise tıklanma özelliği biter
                 levelEnd = true;
+                if (team == 1) { //BİTİRE BASTIGINDA OYUNCU DEĞİŞSİN OYUN BASINA DÖNÜLSÜN OYUNCU1 İN SÜRESİ TUTULSUN SKORE İÇİN-----------------------
+                    team = 2;
+                }
             }
             else
             {
@@ -143,7 +146,7 @@ namespace WindowsFormsApp8
                 item.BackColor = Color.Green;
             }
 
-            timer2.Interval = 3000; //3 saniye durcak
+            timer2.Interval = 2500; //3 saniye durcak
             timer2.Enabled = true;
             isButton27Clicked = true;
             mapClone.AddRange(map);
@@ -194,7 +197,7 @@ namespace WindowsFormsApp8
         }
         private void MapButtonClick(object sender, EventArgs e) //seçilen takıma göre boyama
         {
-            int team;
+            
             timer2.Enabled = false;
 
 
