@@ -12,6 +12,8 @@ namespace WindowsFormsApp8
 
         public int Score { get; set; }
 
+        public decimal Time { get; set; }
+
         public void AlterScore(int amount) => this.Score += amount;
     }
 }

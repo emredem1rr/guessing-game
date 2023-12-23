@@ -44,7 +44,7 @@ namespace WindowsFormsApp8
         List<Button> map = new List<Button>();
         List<Button> mapClone = new List<Button>();
 
-        public Level1Form(List<Player> players,bool sesKontrol)
+        public Level1Form(List<Player> players, bool sesKontrol)
         {
             InitializeComponent();
             this.Players = players;
@@ -79,7 +79,7 @@ namespace WindowsFormsApp8
         }
 
         private void StartButtonClick(object sender, EventArgs e) // BAŞLA BUTTON
-        { 
+        {
             List<Button> buttons = Controls.OfType<Button>().Where(b => b.Tag == "map").ToList(); // tüm butonlara eriştik
             buttons.ForEach(b => b.Enabled = true);//buttonun basılabilmesini açtık
 
@@ -91,7 +91,7 @@ namespace WindowsFormsApp8
 
             if (!isButtonChanged) //başlaya basma
             {
-                
+
                 button25.Text = "BİTİR";
                 isButtonChanged = true;
                 surReady = true;
@@ -107,9 +107,19 @@ namespace WindowsFormsApp8
                 isTimerRunning = false;
                 isStartButtonClicked = true; // Button ismi "BİTİR" ise tıklanma özelliği biter
                 levelEnd = true;
-                if (team == 1) { //BİTİRE BASTIGINDA OYUNCU DEĞİŞSİN OYUN BASINA DÖNÜLSÜN OYUNCU1 İN SÜRESİ TUTULSUN SKORE İÇİN-----------------------
+                if (team == 1)
+                { //BİTİRE BASTIGINDA OYUNCU DEĞİŞSİN OYUN BASINA DÖNÜLSÜN OYUNCU1 İN SÜRESİ TUTULSUN SKORE İÇİN-----------------------
                     team = 2;
+                    currentPlayer.Time = timer1.Interval; // böyle süresi alınıyor mu bilmiyroum
+                    this.currentPlayer = Players[team - 1];
+
                 }
+                else
+                {
+                    team = 1;
+                    this.currentPlayer = Players[team - 1];
+                }
+
             }
             else
             {
@@ -197,7 +207,7 @@ namespace WindowsFormsApp8
         }
         private void MapButtonClick(object sender, EventArgs e) //seçilen takıma göre boyama
         {
-            
+
             timer2.Enabled = false;
 
 
@@ -213,7 +223,7 @@ namespace WindowsFormsApp8
 
             if (team == 1)
             {
-                clickedButton.BackColor = Color.Blue;             
+                clickedButton.BackColor = Color.Blue;
             }
             else if (team != 2 && team != 1)
             {
@@ -228,7 +238,7 @@ namespace WindowsFormsApp8
             if (mapClone.First() == clickedButton) //tıklanan dizinin ilk elemanı mı kontrol
             {
                 if (sesKontrol) { dogruSesi.Play(); }
-                
+
                 mapClone.Remove(clickedButton); //ilk elemanı siliyoruz diğeri ilk eleman oluyo kuyruk mantığı
                 timer3.Start();
             }
@@ -243,22 +253,22 @@ namespace WindowsFormsApp8
         {
             List<Button> buttons = Controls.OfType<Button>().Where(b => b.Tag == "map").ToList(); // tüm butonlara eriştik
             buttons.ForEach(b => b.BackColor = Color.White); //beyaz yaptık
-            CreateMap(buttons);       
+            CreateMap(buttons);
         }
 
         private void CreateMap(List<Button> buttons) //YENİDEN MAP YAPMA
         {
             this.map.Clear();
-            mapClone.Clear();        
+            mapClone.Clear();
             buttons.ForEach(b => b.Enabled = false); //yeniden yaparken boyama işlemini iptal etme
             Random r = new Random();
-            int range = 3; 
-            int startIndex = 0; 
+            int range = 3;
+            int startIndex = 0;
 
-            while (startIndex + range < buttons.Count + 1) 
+            while (startIndex + range < buttons.Count + 1)
             {
-                map.Add(buttons[r.Next(startIndex, startIndex + range)]); 
-                startIndex += range;        
+                map.Add(buttons[r.Next(startIndex, startIndex + range)]);
+                startIndex += range;
             }
 
             foreach (var item in map)
@@ -268,7 +278,7 @@ namespace WindowsFormsApp8
 
             timer2.Interval = 3000;
             timer2.Enabled = true;
-            timer3.Interval = 3000; 
+            timer3.Interval = 3000;
             timer3.Enabled = true;
             mapClone.AddRange(map);
         }
@@ -284,10 +294,10 @@ namespace WindowsFormsApp8
         }
 
         private void timer3_Tick(object sender, EventArgs e)
-        {       
-            List<Button>buttons = Controls.OfType<Button>().Where(b => b.Tag == "map").ToList(); // tüm butonlara eriştik
+        {
+            List<Button> buttons = Controls.OfType<Button>().Where(b => b.Tag == "map").ToList(); // tüm butonlara eriştik
             buttons.ForEach(b => b.Enabled = true);
-            if(mapClone.Count() == 0) { bitirActive = true; }
+            if (mapClone.Count() == 0) { bitirActive = true; }
         }
     }
 }
