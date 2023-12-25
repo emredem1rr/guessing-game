@@ -8,6 +8,7 @@ namespace WindowsFormsApp8
 {
     public class Player
     {
+        //test
         public string Name { get; set; }
 
         public int Score { get; set; }
